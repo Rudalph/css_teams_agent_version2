@@ -52,11 +52,13 @@ export default function VoiceAssistant() {
   const sendQuestion = async (text) => {
     setLoading(true);
     try {
-      const res = await fetch("http://localhost:5000/ask", {
+      const res = await fetch("http://127.0.0.1:5000/ask", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ question: text }),
       });
+
+      console.log(res)
 
       const data = await res.json();
       if (data.answer) {

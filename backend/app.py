@@ -21,7 +21,7 @@ load_dotenv()
 llm_api_key = "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"
 
 # Load PDF
-loader = PyPDFLoader("data/Blockchain_Guest_Lecture_Notes.pdf")
+loader = PyPDFLoader("data/Coforge_WebApplication_First.pdf")
 data = loader.load()
 
 # Split text
@@ -76,28 +76,30 @@ def ask():
         return jsonify({"error": str(e)}), 500
 
 
-import requests
-from apscheduler.schedulers.background import BackgroundScheduler
-# Dummy route
-@app.route('/keep_alive', methods=['GET'])
-def keep_alive():
-    return "Instance is alive!", 200
+# import requests
+# from apscheduler.schedulers.background import BackgroundScheduler
+# # Dummy route
+# @app.route('/keep_alive', methods=['GET'])
+# def keep_alive():
+#     return "Instance is alive!", 200
 
-# Function to send dummy request
-def send_dummy_request():
-    try:
-        # Replace 'http://your-domain.com/keep_alive' with your deployed API URL
-        response = requests.get('https://medisense-backend.onrender.com/keep_alive')
-        print(f"Keep-alive request sent: {response.status_code}")
-    except Exception as e:
-        print(f"Failed to send keep-alive request: {e}")
+# # Function to send dummy request
+# def send_dummy_request():
+#     try:
+#         # Replace 'http://your-domain.com/keep_alive' with your deployed API URL
+#         response = requests.get('https://medisense-backend.onrender.com/keep_alive')
+#         print(f"Keep-alive request sent: {response.status_code}")
+#     except Exception as e:
+#         print(f"Failed to send keep-alive request: {e}")
 
-# Scheduler to run the dummy request every 10 minutes
-scheduler = BackgroundScheduler()
-scheduler.add_job(send_dummy_request, 'interval', minutes=1)
-scheduler.start()
+# # Scheduler to run the dummy request every 10 minutes
+# scheduler = BackgroundScheduler()
+# scheduler.add_job(send_dummy_request, 'interval', minutes=1)
+# scheduler.start()
 
 
 # -------------------- Run Server --------------------
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000, debug=True)
+    import os
+    port = int(os.environ.get("PORT", 5000))  # Use Render's port
+    app.run(host="0.0.0.0", port=port, debug=True)
